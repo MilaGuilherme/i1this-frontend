@@ -1,10 +1,18 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+<link rel="stylesheet" href="https://unpkg.com/primeflex@3.0.0/primeflex.css">
+  <top-bar/>
   <router-view/>
 </template>
+
+<script>
+import  TopBar from './components/TopBar.vue'
+export default {
+  components:{
+    TopBar
+  }
+}
+</script>
+
 
 <style>
 #app {
