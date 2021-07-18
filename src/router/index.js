@@ -1,17 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import LoginForm from '../components/LoginForm.vue'
+import SignIn from '../components/SignIn.vue'
+import SignUp from '../components/SignUp.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
-    children:[{
-      path:"/login",
-      component:LoginForm,
-      name:"Login"
-    }]
+    children: [
+      {
+        path: "/signin",
+        component: SignIn,
+        name: "signin"
+      },
+      {
+        path: "/signup",
+        component: SignUp,
+        name: "signup"
+      }
+    ]
   },
   {
     path: '/about',

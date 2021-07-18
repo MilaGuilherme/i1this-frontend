@@ -2,7 +2,8 @@
   <Button
     type="button"
     class="p-button p-component p-mr-2"
-    label="Sign Up"
+    label="Sign Up"    
+    @click="$router.push('/signup')"
     aria-haspopup="true"
     aria-controls="overlay_menu"
   />
@@ -10,7 +11,7 @@
     type="button"
     class="p-button-outlined p-component p-mr-2 h-auto"
     label="Sign In"
-    @click="$store.dispatch('signIn')"
+    @click="$router.push('/signin')"
     aria-haspopup="true"
     aria-controls="overlay_menu"
   />

@@ -26,13 +26,11 @@
 
 <script>
 import LoggedButtons from "./LoggedButtons.vue";
-import LoginForm from './LoginForm.vue';
 import UnloggedButtons from "./UnloggedButtons.vue";
 export default {
   components: {
     LoggedButtons,
     UnloggedButtons,
-    LoginForm,
   },
   mounted() {
     window.addEventListener("resize", () => {
@@ -97,7 +95,7 @@ export default {
         },
         {
           label: "Sign In",
-          command:()=>{this.$store.dispatch('signIn')}
+          url:"/signin"
         },
       ],
     };
