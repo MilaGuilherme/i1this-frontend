@@ -10,7 +10,7 @@ export default createStore({
   getters:{
     getStatus: state=>{
       return state.status;
-    }
+    },
   },
   mutations: {
     SIGNIN(state){
@@ -18,6 +18,9 @@ export default createStore({
     },
     SIGNOUT(state){
       state.status.signed = false
+    },
+    SETTOKEN(state,payload){
+      state.status.token = payload
     }
   },
   actions: {
@@ -26,6 +29,9 @@ export default createStore({
     },
     signOut(){
       this.commit('SIGNOUT')
+    },
+    setToken(context,payload){
+      context.commit('SETTOKEN', payload)
     }
   },
   modules: {

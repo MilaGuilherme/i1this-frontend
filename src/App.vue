@@ -1,4 +1,5 @@
 <template>
+  <Toast />
 <link rel="stylesheet" href="https://unpkg.com/primeflex@3.0.0/primeflex.css">
   <top-bar/>
   <router-view/>
