@@ -18,27 +18,30 @@
           type="email"
           v-model="v$.email.$model"
           :class="{
-            'p-invalid': v$.password.$invalid && submitted,
+            'p-invalid': v$.email.$invalid && submitted,
           }"
         />
-        <small
-          v-if="
-            (v$.password.$invalid && submitted) ||
-            v$.password.$pending.$response
-          "
-          class="p-error"
-          >{{ v$.email.required.$message.replace("Value", "Email") }}</small
-        >
-        <small v-if="invalidEmail" class="p-error"> Invalid e-mail </small>
+         <template v-for="error in v$.email.$errors" :key="error">
+          <small class="p-error">{{
+            error.$message.replace("Value", "Email")
+          }}</small
+          ><br />
+        </template>
       </div>
       <div class="p-field my-2">
         <Password
           id="password"
           placeholder="Password"
           v-model="v$.password.$model"
-          :class="{ 'p-invalid': v$.password.$invalid && submitted }"
+          :class="{
+            'p-invalid': (v$.password.$invalid && submitted) || wrongPassword,
+          }"
           :feedback="false"
-          @keypress="()=>{wrongPassword==true?wrongPassword=false:null}"
+          @keypress="
+            () => {
+              wrongPassword == true ? (wrongPassword = false) : null;
+            }
+          "
         >
         </Password>
         <template v-for="error in v$.password.$errors" :key="error">
@@ -47,9 +50,7 @@
           }}</small
           ><br />
         </template>
-        <small v-if="(wrongPassword)" class="p-error">
-          Invalid password
-        </small>
+        <small v-if="wrongPassword" class="p-error"> Invalid password </small>
       </div>
       <Button class="my-2" type="submit" label="Sign In" />
     </form>
@@ -99,8 +100,9 @@ export default {
     successMsg() {
       this.$toast.add({
         severity: "success",
+        summary: "Signed in",
         detail: "Welcome back",
-        life: 3000,
+        life: 1500,
       });
     },
     async signIn() {
@@ -111,19 +113,15 @@ export default {
       };
       try {
         await axios.post(url, data).then((response) => {
-          if (response.data.status == 403) {
-            this.wrongPassword = true;
-          }
-          if (response.data.status == 200) {
-            console.log(response);
-            this.$store.dispatch("setToken", response.headers["auth-token"]);
-            this.$store.dispatch("signIn");
-            this.successMsg();
-            this.$router.push("/");
-          }
+          this.$store.dispatch("setToken", response.headers["auth-token"]);
+          this.$store.dispatch("signIn");
+          this.successMsg();
+          this.$router.push("/");
         });
       } catch (err) {
-        console.log(err);
+        if (err.response.status == 403) {
+          this.wrongPassword = true;
+        }
       }
     },
   },

@@ -36,15 +36,17 @@
           :class="{
             'p-invalid': (v$.password.$invalid && submitted) || duplicateEmail,
           }"
+          @keyup="
+            () => {
+              duplicateEmail == true ? (duplicateEmail = false) : null;
+            }"
         />
-        <small
-          v-if="
-            (v$.password.$invalid && submitted) ||
-            v$.password.$pending.$response
-          "
-          class="p-error"
-          >{{ v$.email.required.$message.replace("Value", "Email") }}</small
-        >
+        <template v-for="error in v$.email.$errors" :key="error">
+          <small class="p-error">{{
+            error.$message.replace("Value", "Email")
+          }}</small
+          ><br />
+        </template>
         <small v-if="duplicateEmail" class="p-error">
           This e-mail is already registered
         </small>
@@ -104,7 +106,7 @@
           >I agree to the terms and conditions*</label
         >
       </div>
-      <Button class="my-2" type="submit" label="Sign Up"/>
+      <Button class="my-2" type="submit" label="Sign Up" />
     </form>
     <small>Already have an account?</small>
     <Button
@@ -152,7 +154,7 @@ export default {
         this.signUp();
       }
     },
-    successMsg(){
+    successMsg() {
       this.$toast.add({
         severity: "success",
         summary: "Success",
@@ -167,10 +169,10 @@ export default {
         password: this.password,
       };
       try {
-        await axios.post(url, data).then(response => {
-          this.$store.dispatch('setToken',response.headers["auth-token"])
-          this.$store.dispatch('signIn')
-          this.$router.push('/')
+        await axios.post(url, data).then((response) => {
+          this.$store.dispatch("setToken", response.headers["auth-token"]);
+          this.$store.dispatch("signIn");
+          this.$router.push("/");
         });
       } catch (err) {
         console.log(err);
@@ -187,16 +189,14 @@ export default {
         },
       };
       try {
-        await axios.post(url, data).then((res) => {
-          if (res.data.status == 502) {
-            this.duplicateEmail = true;
-          } else if (res.data.status == 201) {
-            this.successMsg();
-            this.signIn();
-          }
+        await axios.post(url, data).then(() => {
+          this.successMsg();
+          this.signIn();
         });
       } catch (err) {
-        console.log(err);
+        if (err.response.status == 502) {
+          this.duplicateEmail = true;
+        }
       }
     },
   },

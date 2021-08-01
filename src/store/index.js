@@ -2,6 +2,8 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    hotProducts:[],
+    products:[],
     status:{
       signed:false,
       token:""
@@ -10,6 +12,9 @@ export default createStore({
   getters:{
     getStatus: state=>{
       return state.status;
+    },
+    getHotProducts: state=>{
+      return state.hotProducts;
     },
   },
   mutations: {
@@ -21,6 +26,9 @@ export default createStore({
     },
     SETTOKEN(state,payload){
       state.status.token = payload
+    },
+    HOTPRODUCTS(state,payload){
+      state.hotProducts = payload
     }
   },
   actions: {
@@ -32,6 +40,9 @@ export default createStore({
     },
     setToken(context,payload){
       context.commit('SETTOKEN', payload)
+    },
+    hotProducts(context,payload){
+      context.commit('HOTPRODUCTS',payload)
     }
   },
   modules: {
