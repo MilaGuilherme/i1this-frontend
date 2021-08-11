@@ -17,11 +17,22 @@
           placeholder="Email"
           type="email"
           v-model="v$.email.$model"
+          @keypress="
+            () => {
+              noUser == true ? (noUser = false) : null;
+            }
+          "
+          @blur="
+            () => {
+              noUser == true ? (noUser = false) : null;
+            }
+          "
           :class="{
-            'p-invalid': v$.email.$invalid && submitted,
+            'p-invalid': (v$.email.$invalid && submitted) || noUser,
           }"
         />
-         <template v-for="error in v$.email.$errors" :key="error">
+        <small v-if="noUser" class="p-error"> E-mail not registered </small>
+        <template v-for="error in v$.email.$errors" :key="error">
           <small class="p-error">{{
             error.$message.replace("Value", "Email")
           }}</small
@@ -38,6 +49,11 @@
           }"
           :feedback="false"
           @keypress="
+            () => {
+              wrongPassword == true ? (wrongPassword = false) : null;
+            }
+          "
+          @blur="
             () => {
               wrongPassword == true ? (wrongPassword = false) : null;
             }
@@ -77,6 +93,7 @@ export default {
       submitted: false,
       invalidEmail: false,
       wrongPassword: false,
+      noUser: false,
     };
   },
   setup() {
@@ -113,7 +130,7 @@ export default {
       };
       try {
         await axios.post(url, data).then((response) => {
-          this.$store.dispatch("setToken", response.headers["auth-token"]);
+          this.$store.dispatch("setStatus", response.headers);
           this.$store.dispatch("signIn");
           this.successMsg();
           this.$router.push("/");
@@ -121,6 +138,9 @@ export default {
       } catch (err) {
         if (err.response.status == 403) {
           this.wrongPassword = true;
+        }
+        if (err.response.status == 404) {
+          this.noUser = true;
         }
       }
     },

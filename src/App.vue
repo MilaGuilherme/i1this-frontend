@@ -1,17 +1,31 @@
 <template>
-  <Toast />
-<link rel="stylesheet" href="https://unpkg.com/primeflex@3.0.0/primeflex.css">
-  <top-bar/>
-  <router-view/>
+  <Toast position="top-center"/>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/primeflex@3.0.0/primeflex.css"
+  />
+  <top-bar />
+  <template v-if="userType == '' || userType == 3"
+    ><CreateProductBanner
+  /></template>
+  <router-view />
 </template>
 
 <script>
-import  TopBar from './components/TopBar.vue'
+import CreateProductBanner from "./components/CreateProductBanner.vue";
+import TopBar from "./components/TopBar.vue";
 export default {
-  components:{
-    TopBar
-  }
-}
+  Data() {
+    return {};
+  },
+  components: {
+    TopBar,
+    CreateProductBanner,
+  },
+  computed: {
+    userType(){ return this.$store.state.status.type}
+  },
+};
 </script>
 
 

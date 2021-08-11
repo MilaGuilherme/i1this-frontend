@@ -46,7 +46,7 @@ export default {
   data() {
     return { 
       innerWidth: window.innerWidth,
-      status: this.$store.getters.getStatus,
+      status: this.$store.state.status,
       search: "Search item",
       items: [
         {
@@ -55,9 +55,6 @@ export default {
         {
           label: "Users",
         },
-        {
-          label: "About Us",
-        },
       ],
       signedMobileItems: [
         {
@@ -65,9 +62,6 @@ export default {
         },
         {
           label: "Users",
-        },
-        {
-          label: "About Us",
         },
         {
           label: "Notifications",
@@ -86,9 +80,6 @@ export default {
         },
         {
           label: "Users",
-        },
-        {
-          label: "About Us",
         },
         {
           label: "Sign Up",

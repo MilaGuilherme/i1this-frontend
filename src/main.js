@@ -26,7 +26,12 @@ import Toolbar from 'primevue/toolbar'
 import Dialog from 'primevue/dialog';
 import Checkbox from 'primevue/checkbox';
 import Divider from 'primevue/divider';
-
+import Tag from 'primevue/tag';
+import Carousel from 'primevue/carousel';
+import Badge from 'primevue/badge';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Chip from 'primevue/chip';
 
 createApp(App)
     .use(store)
@@ -36,14 +41,20 @@ createApp(App)
     .use(ToastService)
     .use(VuelidatePlugin)
     .component("InputText", InputText)
+    .component("DataTable", DataTable)
+    .component("Column", Column)
     .component("Password", Password)
+    .component("Chip", Chip)
     .component("Checkbox", Checkbox)
+    .component("Tag", Tag)
     .component("Card", Card)
     .component("Toast", Toast)
     .component("Divider", Divider)
     .component("Menubar", Menubar)
+    .component("Badge", Badge)
     .component("Menu", Menu)
     .component("Dialog", Dialog)
+    .component("Carousel", Carousel)
     .component("Toolbar", Toolbar)
     .component("Button", Button)
     .mount('#app')

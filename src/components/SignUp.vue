@@ -170,7 +170,7 @@ export default {
       };
       try {
         await axios.post(url, data).then((response) => {
-          this.$store.dispatch("setToken", response.headers["auth-token"]);
+          this.$store.dispatch("setStatus", response.headers);
           this.$store.dispatch("signIn");
           this.$router.push("/");
         });
@@ -181,12 +181,9 @@ export default {
     async signUp() {
       const url = `${process.env.VUE_APP_API}/signup`;
       const data = {
-        agent_id: "0",
-        data: {
           name: this.name,
           email: this.email,
           password: this.password,
-        },
       };
       try {
         await axios.post(url, data).then(() => {
