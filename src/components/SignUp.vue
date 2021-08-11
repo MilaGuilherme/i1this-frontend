@@ -172,7 +172,7 @@ export default {
         await axios.post(url, data).then((response) => {
           this.$store.dispatch("setStatus", response.headers);
           this.$store.dispatch("signIn");
-          this.$router.push("/");
+          this.$router.back();
         });
       } catch (err) {
         console.log(err);

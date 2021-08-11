@@ -32,6 +32,10 @@ import Badge from 'primevue/badge';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Chip from 'primevue/chip';
+import Textarea from 'primevue/textarea';
+import InputNumber from 'primevue/inputnumber';
+import MultiSelect from 'primevue/multiselect';
+
 
 createApp(App)
     .use(store)
@@ -40,21 +44,24 @@ createApp(App)
     .use(PrimeVue)
     .use(ToastService)
     .use(VuelidatePlugin)
-    .component("InputText", InputText)
-    .component("DataTable", DataTable)
-    .component("Column", Column)
-    .component("Password", Password)
-    .component("Chip", Chip)
-    .component("Checkbox", Checkbox)
-    .component("Tag", Tag)
+    .component("Button", Button)
+    .component("Carousel", Carousel)
     .component("Card", Card)
+    .component("Checkbox", Checkbox)
+    .component("Chip", Chip)
+    .component("Column", Column)
+    .component("DataTable", DataTable)
+    .component("InputText", InputText)
+    .component("Textarea", Textarea)
+    .component("Password", Password)
+    .component("InputNumber", InputNumber)
+    .component("MultiSelect", MultiSelect)
+    .component("Tag", Tag)
     .component("Toast", Toast)
     .component("Divider", Divider)
     .component("Menubar", Menubar)
     .component("Badge", Badge)
     .component("Menu", Menu)
     .component("Dialog", Dialog)
-    .component("Carousel", Carousel)
     .component("Toolbar", Toolbar)
-    .component("Button", Button)
     .mount('#app')

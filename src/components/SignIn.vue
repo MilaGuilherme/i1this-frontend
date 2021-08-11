@@ -5,7 +5,7 @@
     style="max-width: 400px"
     :modal="true"
     class="text-center"
-    @update:visible="$router.push('/')"
+    @update:visible="$router.back()"
   >
     <form
       class="p-fluid text-left"
@@ -133,7 +133,7 @@ export default {
           this.$store.dispatch("setStatus", response.headers);
           this.$store.dispatch("signIn");
           this.successMsg();
-          this.$router.push("/");
+          this.$router.back();
         });
       } catch (err) {
         if (err.response.status == 403) {

@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 import CategoryChips from "./CategoryChips.vue";
 import PlusOneButton from "./PlusOneButton.vue";
@@ -54,21 +53,9 @@ export default {
   Data() {
     return {};
   },
-  methods: {
-    async fetchProducts() {
-      const url = `${process.env.VUE_APP_API}/products`;
-      axios.get(url).then((response) => {
-        this.$store.dispatch("setProducts", response.data.content);
-        return this.$store.products;
-      });
-    },
-  },
   components: {
     PlusOneButton,
     CategoryChips,
-  },
-  mounted() {
-    this.fetchProducts();
   },
   computed: {
     ...mapGetters({

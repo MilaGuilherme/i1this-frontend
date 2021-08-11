@@ -5,7 +5,7 @@
     href="https://unpkg.com/primeflex@3.0.0/primeflex.css"
   />
   <top-bar />
-  <template v-if="userType == '' || userType == 3"
+  <template v-if="$store.state.status.type == '' || $store.state.status.type == 3"
     ><CreateProductBanner
   /></template>
   <router-view />
@@ -22,8 +22,10 @@ export default {
     TopBar,
     CreateProductBanner,
   },
-  computed: {
-    userType(){ return this.$store.state.status.type}
+  mounted() {
+    this.$store.dispatch("fetchProducts");
+    this.$store.dispatch("fetchCategories");
+    this.$store.dispatch("fetchUsers");
   },
 };
 </script>

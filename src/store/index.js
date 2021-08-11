@@ -5,6 +5,7 @@ export default createStore({
   state: {
     hotProducts: [],
     products: [],
+    users: [],
     categories: [],
     categoriesSelected: new Set(),
     status: {
@@ -38,7 +39,7 @@ export default createStore({
       state.status.type = payload['type']
     },
     SETUSERS(state, payload) {
-      state.products = payload
+      state.users = payload
     },
     SETPRODUCTS(state, payload) {
       state.products = payload
@@ -78,7 +79,7 @@ export default createStore({
         context.commit('SETPRODUCTS', response.data.content)
       })
     },
-    fetchCategories(context) {
+    fetchCategories(context){
       const url = `${process.env.VUE_APP_API}/categories`;
       axios.get(url).then((response) => {
         context.commit('SETCATEGORIES', response.data.content)
