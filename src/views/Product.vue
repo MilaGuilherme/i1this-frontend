@@ -114,14 +114,14 @@
               parseDate(proposal.dueDate)
             }}</span>
           </h3>
-          <div v-if="proposal.requiresIntent">
-            <h3 class="text-base text-700 mb inline">
-              This product will be sold once it`s accepted by
+          <div v-if="proposal.requiresIntent" class="text-base flex flex-row inline align-items-center">
+            <h3 class="text-700 mb col">
+              This product will be sold once it's accepted by
               <span class="text-primary font-bold"
                 >{{ proposal.minimunQty }} users</span
               >
             </h3>
-            <AcceptProposalButton :product="product.id" location="product"/>
+            <AcceptProposalButton class="h-3rem" :proposal="proposal.id" location="product"/>
           </div>
         </div>
       </div>

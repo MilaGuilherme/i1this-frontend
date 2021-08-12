@@ -2,20 +2,20 @@
   <div class="home">
     <router-view />
     <HotProducts />
-    <ProductCardList/>
+    <ProductList/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HotProducts from "@/components/HotProducts.vue";
-import ProductCardList from "@/components/ProductCardList.vue";
+import ProductList from "@/components/ProductList.vue";
 
 export default {
   name: "Home",
   components: {
     HotProducts,
-    ProductCardList
+    ProductList
   },
    mounted() {
     this.$store.dispatch("fetchProducts");

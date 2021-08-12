@@ -15,18 +15,15 @@ import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 
 import Menubar from 'primevue/menubar'
-import Card from 'primevue/card'
 import Menu from 'primevue/menu'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
-import Toolbar from 'primevue/toolbar'
 import Dialog from 'primevue/dialog';
 import Checkbox from 'primevue/checkbox';
 import Divider from 'primevue/divider';
-import Tag from 'primevue/tag';
 import Carousel from 'primevue/carousel';
 import Badge from 'primevue/badge';
 import DataTable from 'primevue/datatable';
@@ -38,6 +35,8 @@ import MultiSelect from 'primevue/multiselect';
 import Galleria from 'primevue/galleria';
 import Calendar from 'primevue/calendar';
 import InputMask from 'primevue/inputmask';
+import DataView from 'primevue/dataview';
+
 
 
 
@@ -52,7 +51,7 @@ createApp(App)
     .component("Calendar", Calendar)
     .component("Carousel", Carousel)
     .component("Galleria", Galleria)
-    .component("Card", Card)
+    .component("DataView", DataView)
     .component("Checkbox", Checkbox)
     .component("Chip", Chip)
     .component("Column", Column)
@@ -63,12 +62,10 @@ createApp(App)
     .component("Password", Password)
     .component("InputNumber", InputNumber)
     .component("MultiSelect", MultiSelect)
-    .component("Tag", Tag)
     .component("Toast", Toast)
     .component("Divider", Divider)
     .component("Menubar", Menubar)
     .component("Badge", Badge)
     .component("Menu", Menu)
     .component("Dialog", Dialog)
-    .component("Toolbar", Toolbar)
     .mount('#app')

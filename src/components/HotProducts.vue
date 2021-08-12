@@ -12,14 +12,14 @@
     >
       <template #item="slotProps">
         <div
-          class=" p-0 product-item-content  m-2 text-left p-card"
+          class="product-item-content m-2 text-left p-card"
         >
           <div class="img-container">
             <router-link :to="{ path: `/products/${slotProps.data.id}` }">
               <img
                 :src="slotProps.data.photos[0].src"
                 :alt="slotProps.data.name"
-                class="product-image w-full"
+                class="product-image"
               />
             </router-link>
           </div>
@@ -108,10 +108,6 @@ export default {
 }
 .img-container {
   height: 150px;
-  overflow: hidden;
-}
-.p-tag {
-  margin-bottom: 0.5em;
-  margin-right: 0.5em;
+  max-width: ;
 }
 </style>
