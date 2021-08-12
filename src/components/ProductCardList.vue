@@ -2,15 +2,17 @@
   <div>
     <DataTable :value="products" responsiveLayout="scroll">
       <Column>
-        <template #body="slotProps">
-          <div class="img-container">
-            <img
-              :src="slotProps.data.photos[0].src"
-              :alt="slotProps.data.name"
-              class="product-image w-full"
-            />
-          </div>
-        </template>
+          <template #body="slotProps">
+        <router-link :to="{ path: `/products/${slotProps.data.id}` }">
+            <div class="img-container">
+              <img
+                :src="slotProps.data.photos[0].src"
+                :alt="slotProps.data.name"
+                class="product-image"
+              />
+            </div>
+        </router-link>
+          </template>
       </Column>
       <Column field="name"></Column>
       <Column>
@@ -50,9 +52,6 @@ import { mapGetters } from "vuex";
 import CategoryChips from "./CategoryChips.vue";
 import PlusOneButton from "./PlusOneButton.vue";
 export default {
-  Data() {
-    return {};
-  },
   components: {
     PlusOneButton,
     CategoryChips,

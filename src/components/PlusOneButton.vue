@@ -1,6 +1,6 @@
 <template>
    <template v-if="userType == '' || userType == 3"
-    ><Button @click="oneProduct()" class="plus-one p-button p-button-rounded">{{
+    ><Button @click="oneProduct()" class="plus-one shadow-2	p-button p-button-rounded">{{
     ones
   }}</Button></template>
 </template>
@@ -12,6 +12,7 @@ export default {
   props: {
     ones: Number,
     product: Number,
+    location: String,
   },
   Data() {
     return {};
@@ -32,7 +33,8 @@ export default {
         };
         axios
           .post(url, data, config)
-          .then(() => this.$store.dispatch("fetchProducts"));
+          .then(() => {
+            this.location != 'product' ? this.$store.dispatch("fetchProducts"):this.$store.dispatch("fetchSelectedProduct",this.$route.path);});
       } else {
         this.$router.push("/signin");
       }

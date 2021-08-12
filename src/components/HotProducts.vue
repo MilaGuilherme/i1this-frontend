@@ -2,41 +2,45 @@
   <h2 class="text-left">🔥 Hot products</h2>
   <div class="hotproducts grid">
     <Carousel
-      :value="products"
-      :numVisible="4"
+      :value="hotProducts"
+      :numVisible="5"
       :numScroll="1"
-      :responsiveOptions="responsiveOptions"
-      class="w-full"
       :circular="true"
+      :responsiveOptions="responsiveOptions"
+
+      class="w-full"
     >
       <template #item="slotProps">
         <div
-          class="col p-0 product-item-content bg-white shadow-1 m-2 text-left"
+          class=" p-0 product-item-content  m-2 text-left p-card"
         >
           <div class="img-container">
-            <router-link :to="{path:`/products/${slotProps.data.id}`}">
-            <img
-              :src="slotProps.data.photos[0].src"
-              :alt="slotProps.data.name"
-              class="product-image w-full"
-            />
+            <router-link :to="{ path: `/products/${slotProps.data.id}` }">
+              <img
+                :src="slotProps.data.photos[0].src"
+                :alt="slotProps.data.name"
+                class="product-image w-full"
+              />
             </router-link>
           </div>
           <div class="card-one-button">
-            <PlusOneButton :ones="slotProps.data.ones" :product="slotProps.data.id"/>
+            <PlusOneButton
+              :ones="slotProps.data.ones"
+              :product="slotProps.data.id"
+            />
           </div>
           <div class="px-3">
             <h3 class="p-mb-1">
               {{ slotProps.data.name }}
             </h3>
             <div class="pb-2">
-               <template
-            v-for="category in slotProps.data.categories"
-            :key="category.index"
-            :value="category.name"
-          >
-            <CategoryChips :category="category.name" />
-          </template>
+              <template
+                v-for="category in slotProps.data.categories"
+                :key="category.index"
+                :value="category.name"
+              >
+                <CategoryChips :category="category.name" />
+              </template>
             </div>
           </div>
         </div>
@@ -76,6 +80,14 @@ export default {
     };
   },
   computed: {
+    hotProducts(){
+      const hot = []
+      this.products.map(m=>
+      m.ones > 0? hot.push(m) : null)
+      hot.sort((a,b)=> a.ones < b.ones)
+      hot.reverse()
+      return hot
+    },
     ...mapGetters({
       products: "getProducts",
     }),
@@ -84,10 +96,10 @@ export default {
 </script>
 <style>
 .card-one-button {
-    float: right;
-    position: relative;
-    top: -34px;
-    right: 16px;
+  float: right;
+  position: relative;
+  top: -34px;
+  right: 16px;
 }
 .product-item-content {
   object-fit: cover;

@@ -35,6 +35,7 @@ import Chip from 'primevue/chip';
 import Textarea from 'primevue/textarea';
 import InputNumber from 'primevue/inputnumber';
 import MultiSelect from 'primevue/multiselect';
+import Galleria from 'primevue/galleria';
 
 
 createApp(App)
@@ -46,6 +47,7 @@ createApp(App)
     .use(VuelidatePlugin)
     .component("Button", Button)
     .component("Carousel", Carousel)
+    .component("Galleria", Galleria)
     .component("Card", Card)
     .component("Checkbox", Checkbox)
     .component("Chip", Chip)

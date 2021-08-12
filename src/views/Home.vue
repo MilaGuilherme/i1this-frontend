@@ -17,6 +17,11 @@ export default {
     HotProducts,
     ProductCardList
   },
+   mounted() {
+    this.$store.dispatch("fetchProducts");
+    this.$store.dispatch("fetchCategories");
+    this.$store.dispatch("fetchUsers");
+  },
 };
 </script>
 <style scoped>
