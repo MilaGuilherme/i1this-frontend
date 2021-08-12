@@ -152,7 +152,7 @@ export default {
       this.$toast.add({
         severity: "success",
         summary: "Success",
-        detail: "Account created successfully",
+        detail: "Product created successfully",
         life: 3000,
       });
     },
@@ -175,7 +175,7 @@ export default {
       try {
         await axios.post(url, data,config).then((response) => {
            console.log(response)
-           this.$router.push(`/product/${response.data.content.id}`)
+           this.$router.push(`/products/${response.data.content.id}`)
         });
       } catch (err) {
         console.log(err);

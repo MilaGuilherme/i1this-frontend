@@ -1,8 +1,6 @@
 <template><Button 
     :class="$store.state.status.type == 3 || $store.state.status.type == '' ? '':'p-disabled'"
-    @click="$store.state.status.type == 3 ? oneProduct() : ''" class="plus-one shadow-2	p-button p-button-rounded">{{
-    ones
-  }}</Button>
+    @click="$store.state.status.type == 3 ? acceptProposal() : ''" class="plus-one shadow-2	p-button p-button-rounded"> Accept Proposal </Button>
 </template>
 
 <script>
@@ -10,7 +8,6 @@ import axios from "axios";
 
 export default {
   props: {
-    ones: Number,
     product: Number,
     location: String,
   },
@@ -42,11 +39,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.plus-one {
-  width: 64px;
-  height: 64px;
-  place-content: center;
-}
-</style>

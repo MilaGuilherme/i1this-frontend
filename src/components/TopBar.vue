@@ -7,15 +7,7 @@
     </template>
     <template #end v-if="innerWidth > 960">
       <template class="flex align-items-center">
-        <span class="p-input-icon-right m-2">
-          <i class="pi pi-search" />
-          <InputText
-            type="text"
-            v-model="search"
-            placeholder="Search item"
-            class=""
-          />
-        </span>
+        
         <component
           :is="status.signed ? 'LoggedButtons' : 'UnloggedButtons'"
         ></component>
@@ -24,7 +16,18 @@
   </Menubar>
 </template>
 
+
 <script>
+// <span class="p-input-icon-right m-2">
+//           <i class="pi pi-search" />
+//           <InputText
+//             type="text"
+//             v-model="search"
+//             placeholder="Search item"
+//             class=""
+//           />
+//         </span>
+
 import LoggedButtons from "./LoggedButtons.vue";
 import UnloggedButtons from "./UnloggedButtons.vue";
 export default {

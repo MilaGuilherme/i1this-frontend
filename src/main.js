@@ -36,6 +36,9 @@ import Textarea from 'primevue/textarea';
 import InputNumber from 'primevue/inputnumber';
 import MultiSelect from 'primevue/multiselect';
 import Galleria from 'primevue/galleria';
+import Calendar from 'primevue/calendar';
+import InputMask from 'primevue/inputmask';
+
 
 
 createApp(App)
@@ -46,6 +49,7 @@ createApp(App)
     .use(ToastService)
     .use(VuelidatePlugin)
     .component("Button", Button)
+    .component("Calendar", Calendar)
     .component("Carousel", Carousel)
     .component("Galleria", Galleria)
     .component("Card", Card)
@@ -54,6 +58,7 @@ createApp(App)
     .component("Column", Column)
     .component("DataTable", DataTable)
     .component("InputText", InputText)
+    .component("InputMask", InputMask)
     .component("Textarea", Textarea)
     .component("Password", Password)
     .component("InputNumber", InputNumber)

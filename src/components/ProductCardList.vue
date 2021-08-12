@@ -2,8 +2,8 @@
   <div>
     <DataTable :value="products" responsiveLayout="scroll">
       <Column>
-          <template #body="slotProps">
-        <router-link :to="{ path: `/products/${slotProps.data.id}` }">
+        <template #body="slotProps">
+          <router-link :to="{ path: `/products/${slotProps.data.id}` }">
             <div class="img-container">
               <img
                 :src="slotProps.data.photos[0].src"
@@ -11,8 +11,8 @@
                 class="product-image"
               />
             </div>
-        </router-link>
-          </template>
+          </router-link>
+        </template>
       </Column>
       <Column field="name"></Column>
       <Column>

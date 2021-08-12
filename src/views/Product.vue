@@ -1,6 +1,6 @@
 <template>
-  <template v-if="product.id">
-    <div class="p-card lg:m-4 md:m-2 sm:m-2 lg:p-4 md:p-2 sm:p-2 grid">
+  <div v-if="product.id" class="lg:p-4 md:p-2 sm:p-2">
+    <div class="p-card lg:p-4 md:p-2 sm:p-2 grid">
       <Galleria :value="product.photos" :numVisible="5" :circular="true">
         <template #item="slotProps">
           <img
@@ -52,35 +52,92 @@
         </div>
       </div>
     </div>
-
-    <div v-if="product.proposals.length > 0">
+    <div v-if="product.proposals.length == 0">
+      <h2 v-if="$store.state.status.type == 2">
+        No proposals posted for this item yet, be the first one to create a
+        proposal:
+        <CreateprProposalForm :productId="product.id" />
+      </h2>
+      <div v-if="$store.state.status.type != 2">
+        <h2 class="text-base">
+          No proposals posted for this item yet, +1 this product if you're
+          interested in knowing about any future proposals
+        </h2>
+        <PlusOneButton
+          :ones="product.ones"
+          :product="product.id"
+          location="product"
+          class="inline"
+        />
+      </div>
+    </div>
+    <div v-else>
+      <CreateprProposalForm
+        v-if="$store.state.status.type == 2"
+        :productId="product.id"
+      />
+      <h2 class="text-left">Product proposals</h2>
       <div
         v-for="proposal in product.proposals"
         :key="proposal.index"
-        class="p-card lg:m-4 md:m-2 sm:m-2 lg:p-4 md:p-2 sm:p-2 grid"
+        class="p-card lg:p-4 md:p-2 sm:p-2 grid my-2"
       >
-      <Galleria :value=" parseJSON(proposal.photos)" :showThumbnails="false" :numVisible="1" :circular="true" class="galleria-proposal" :id="proposal.id">
-        <template #item="slotProps">
-          <img
-            :src="slotProps.item.src"
-            :alt="slotProps.item.alt ? slotProps.item.alt : product.name"
-            class="product-image"
-          />
-        </template>
-      </Galleria>
-      {{proposal}}
+        <div class="col-2">
+          <Galleria
+            :value="parseJSON(proposal.photos)"
+            :showItemNavigators="true"
+            :showThumbnails="false"
+            :numVisible="1"
+            :circular="true"
+          >
+            <template #item="slotProps" galleriaClass="teste">
+              <img
+                :src="slotProps.item.src"
+                :alt="slotProps.item.alt ? slotProps.item.alt : product.name"
+                class="product-image"
+              />
+            </template>
+          </Galleria>
+        </div>
+        <div class="col text-left align-self-center">
+          <h2 class="text-lg text-700 mb-0">
+            Link of the item
+            <a :href="proposal.link" target="_blank">{{ proposal.link }}</a>
+          </h2>
+          <h3 class="text-base text-700 mb-0">
+            This product is sold by
+            <span class="text-primary font-bold">${{ proposal.price }}</span>
+          </h3>
+          <h3 class="text-base text-700 mb-0">
+            This product will be available until
+            <span class="text-primary font-bold">{{
+              parseDate(proposal.dueDate)
+            }}</span>
+          </h3>
+          <div v-if="proposal.requiresIntent">
+            <h3 class="text-base text-700 mb inline">
+              This product will be sold once it`s accepted by
+              <span class="text-primary font-bold"
+                >{{ proposal.minimunQty }} users</span
+              >
+            </h3>
+            <AcceptProposalButton :product="product.id" location="product"/>
+          </div>
+        </div>
       </div>
     </div>
-  </template>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import PlusOneButton from "../components/PlusOneButton.vue";
 import CategoryChips from "../components/CategoryChips.vue";
+import CreateprProposalForm from "../components/CreateProposalForm.vue";
+import AcceptProposalButton from '../components/AcceptProposalButton.vue';
 
 export default {
-  components: { PlusOneButton, CategoryChips },
+  components: { PlusOneButton, CategoryChips, CreateprProposalForm, AcceptProposalButton },
   data() {},
   computed: {
     ...mapGetters({
@@ -90,11 +147,15 @@ export default {
   mounted() {
     this.$store.dispatch("fetchSelectedProduct", this.$route.path);
   },
-  methods:{
-    parseJSON(string){
-      return JSON.parse(string)
-    }
-  }
+  methods: {
+    parseJSON(string) {
+      return JSON.parse(string);
+    },
+    parseDate(date) {
+      var d = new Date(date);
+      return d.toDateString();
+    },
+  },
 };
 </script>
 <style>
@@ -112,5 +173,9 @@ export default {
 }
 .plus-one-product {
   float: right;
+}
+.proposal-form {
+  max-width: 80%;
+  margin: auto;
 }
 </style>
