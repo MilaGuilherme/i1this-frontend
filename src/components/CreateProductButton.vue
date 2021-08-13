@@ -1,7 +1,7 @@
 <template>
   <Button
-    @click="()=>{ $store.state.status.type == 3? $router.push('/newproduct'): $router.push('/signin')}"
-    class="plus-one p-button p-button-rounded"
+    @click="()=>{ $store.state.status.type == 3? $router.push('/?modal=CreateProductForm'): $router.push('/?modal=SignIn')}"
+    class="plus-one p-button p-button-rounded my-2"
     >{{ text }}</Button
   >
 </template>

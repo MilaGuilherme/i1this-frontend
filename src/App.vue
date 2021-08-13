@@ -15,9 +15,6 @@
 import CreateProductBanner from "./components/CreateProductBanner.vue";
 import TopBar from "./components/TopBar.vue";
 export default {
-  Data() {
-    return {};
-  },
   components: {
     TopBar,
     CreateProductBanner,

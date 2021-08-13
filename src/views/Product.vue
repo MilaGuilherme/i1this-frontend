@@ -53,11 +53,14 @@
       </div>
     </div>
     <div v-if="product.proposals.length == 0">
-      <h2 v-if="$store.state.status.type == 2">
-        No proposals posted for this item yet, be the first one to create a
-        proposal:
+      <div v-if="$store.state.status.type == 2">
+        <h2 class="text-base">
+          No proposals posted for this item yet, be the first one to create a
+          proposal:
+        </h2>
         <CreateprProposalForm :productId="product.id" />
-      </h2>
+      </div>
+
       <div v-if="$store.state.status.type != 2">
         <h2 class="text-base">
           No proposals posted for this item yet, +1 this product if you're
@@ -72,17 +75,16 @@
       </div>
     </div>
     <div v-else>
-      <CreateprProposalForm
-        v-if="$store.state.status.type == 2"
-        :productId="product.id"
-      />
-      <h2 class="text-left">Product proposals</h2>
+      <div v-if="$store.state.status.type == 2">
+          <CreateprProposalForm :productId="product.id" />
+      </div>
+      <h2 class="text-left">🤝 Product proposals</h2>
       <div
         v-for="proposal in product.proposals"
         :key="proposal.index"
         class="p-card lg:p-4 md:p-2 sm:p-2 grid my-2"
       >
-        <div class="col-2">
+        <div class="col-3">
           <Galleria
             :value="parseJSON(proposal.photos)"
             :showItemNavigators="true"
@@ -99,11 +101,11 @@
             </template>
           </Galleria>
         </div>
-        <div class="col text-left align-self-center">
-          <h2 class="text-lg text-700 mb-0">
-            Link of the item
-            <a :href="proposal.link" target="_blank">{{ proposal.link }}</a>
-          </h2>
+        <div class="col text-left align-self-center ">
+          <a :href="proposal.link" class="no-underline" target="_blank"><h2 class=" text-primary text-700 mb-0 text-700 text-left align-self-center">
+            Buy it here
+          </h2></a>
+
           <h3 class="text-base text-700 mb-0">
             This product is sold by
             <span class="text-primary font-bold">${{ proposal.price }}</span>
@@ -114,14 +116,21 @@
               parseDate(proposal.dueDate)
             }}</span>
           </h3>
-          <div v-if="proposal.requiresIntent" class="text-base flex flex-row inline align-items-center">
+          <div
+            v-if="proposal.requiresIntent"
+            class="text-base flex flex-row inline align-items-center"
+          >
             <h3 class="text-700 mb col">
               This product will be sold once it's accepted by
               <span class="text-primary font-bold"
                 >{{ proposal.minimunQty }} users</span
               >
             </h3>
-            <AcceptProposalButton class="h-3rem" :proposal="proposal.id" location="product"/>
+            <AcceptProposalButton
+              class="h-3rem"
+              :proposal="proposal.id"
+              location="product"
+            />
           </div>
         </div>
       </div>
@@ -134,11 +143,15 @@ import { mapGetters } from "vuex";
 import PlusOneButton from "../components/PlusOneButton.vue";
 import CategoryChips from "../components/CategoryChips.vue";
 import CreateprProposalForm from "../components/CreateProposalForm.vue";
-import AcceptProposalButton from '../components/AcceptProposalButton.vue';
+import AcceptProposalButton from "../components/AcceptProposalButton.vue";
 
 export default {
-  components: { PlusOneButton, CategoryChips, CreateprProposalForm, AcceptProposalButton },
-  data() {},
+  components: {
+    PlusOneButton,
+    CategoryChips,
+    CreateprProposalForm,
+    AcceptProposalButton,
+  },
   computed: {
     ...mapGetters({
       product: "getSelectedProduct",
@@ -177,5 +190,8 @@ export default {
 .proposal-form {
   max-width: 80%;
   margin: auto;
+}
+.product-image{
+  max-height:200px
 }
 </style>

@@ -1,6 +1,6 @@
 <template><Button 
-    :class="$store.state.status.type == 3 || $store.state.status.type == '' ? '':'p-disabled'"
-    @click="$store.state.status.type == 3 ? oneProduct() : ''" class="plus-one shadow-2	p-button p-button-rounded">{{
+    :class="$store.state.status.type == 3 || $store.state.status.type == ''? '':'p-disabled'"
+    @click="oneProduct()" class="plus-one shadow-2	p-button p-button-rounded">{{
     ones
   }}</Button>
 </template>
@@ -13,9 +13,6 @@ export default {
     ones: Number,
     product: Number,
     location: String,
-  },
-  Data() {
-    return {};
   },
    computed: {
     userType(){ return this.$store.state.status.type}
@@ -36,7 +33,7 @@ export default {
           .then(() => {
             this.location != 'product' ? this.$store.dispatch("fetchProducts"):this.$store.dispatch("fetchSelectedProduct",this.$route.path);});
       } else {
-        this.$router.push("/signin");
+        this.$router.push("/?modal=SignIn");
       }
     },
   },

@@ -15,9 +15,6 @@ export default {
   components:{
     CategoryChips
   },
-  data() {
-    return {};
-  },
   methods: {
     async fetchCategories() {
       const url = `${process.env.VUE_APP_API}/categories`;

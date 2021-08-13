@@ -1,12 +1,4 @@
 <template>
-  <Dialog
-    v-model:visible="displayModal"
-    header="Create a new product"
-    style="width: 80%"
-    :modal="true"
-    class="text-center"
-    @update:visible="$router.push('/')"
-  >
     <form
       class="p-fluid text-left"
       @submit.prevent="handleSubmit(!v$.$invalid)"
@@ -15,6 +7,8 @@
         <InputText
           id="name"
           placeholder="Product name"
+          autocomplete="off"
+          type='text'
           v-model="v$.name.$model"
           :class="{ 'p-invalid': v$.name.$invalid && submitted }"
         />
@@ -105,7 +99,6 @@
       </div>
       <Button class="my-2" type="submit" label="Post new product" />
     </form>
-  </Dialog>
 </template>
 
 <script>
@@ -183,7 +176,7 @@ export default {
     },
   },
   mounted(){
-      this.$store.state.status.type != 3?  this.$router.push('/signin') : ""
+      this.$store.state.status.type != 3?  this.$router.push('/?modal=SignIn') : ""
   },
   computed: {
     ...mapGetters({

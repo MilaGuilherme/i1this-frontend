@@ -68,7 +68,7 @@ export default {
               : this.$store.dispatch("fetchSelectedProduct", this.$route.path);
           })
       } else {
-        this.$router.push("/signin");
+        this.$router.push("/?modal=SignIn");
       }
     },
   },

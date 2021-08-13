@@ -1,5 +1,13 @@
 <template>
-  <Menubar :model="innerWidth > 960 ? items : status.signed ? signedMobileItems: unsignedMobileItems">
+  <Menubar
+    :model="
+      innerWidth > 960
+        ? items
+        : status.signed
+        ? signedMobileItems
+        : unsignedMobileItems
+    "
+  >
     <template #start>
       <router-link to="/"
         ><img alt="logo" src="../assets/logo.png" height="40" class="mr-3" />
@@ -7,7 +15,7 @@
     </template>
     <template #end v-if="innerWidth > 960">
       <template class="flex align-items-center">
-        
+        <ModalDialog :component="!!$route.query.modal?$route.query.modal:''" :displayModal="!!$route.query.modal?true:false"/>
         <component
           :is="status.signed ? 'LoggedButtons' : 'UnloggedButtons'"
         ></component>
@@ -18,6 +26,11 @@
 
 
 <script>
+import CreateProductButton from './CreateProductButton.vue';
+import UnloggedButtons from "./UnloggedButtons.vue";
+import LoggedButtons from "./LoggedButtons.vue";
+import ModalDialog from './ModalDialog.vue';
+
 // <span class="p-input-icon-right m-2">
 //           <i class="pi pi-search" />
 //           <InputText
@@ -27,13 +40,12 @@
 //             class=""
 //           />
 //         </span>
-
-import LoggedButtons from "./LoggedButtons.vue";
-import UnloggedButtons from "./UnloggedButtons.vue";
 export default {
   components: {
     LoggedButtons,
     UnloggedButtons,
+    CreateProductButton,
+    ModalDialog,
   },
   mounted() {
     window.addEventListener("resize", () => {
@@ -47,24 +59,20 @@ export default {
     },
   },
   data() {
-    return { 
+    return {
       innerWidth: window.innerWidth,
       status: this.$store.state.status,
       search: "Search item",
       items: [
         {
           label: "Products",
-        },
-        {
-          label: "Users",
+          url: "/products",
         },
       ],
       signedMobileItems: [
         {
           label: "Products",
-        },
-        {
-          label: "Users",
+          url: "/products",
         },
         {
           label: "Notifications",
@@ -73,23 +81,25 @@ export default {
           label: "Profile",
         },
         {
-          label: "Sign Out",          
-          command:()=>{this.$store.dispatch('signOut')}
+          label: "Sign Out",
+          command: () => {
+            this.$store.dispatch("signOut");
+          },
         },
       ],
       unsignedMobileItems: [
         {
           label: "Products",
-        },
-        {
-          label: "Users",
+          url: "/products",
         },
         {
           label: "Sign Up",
+          url: "/?modal=SignUp",
+
         },
         {
           label: "Sign In",
-          url:"/signin"
+          url: "/?modal=SignIn",
         },
       ],
     };

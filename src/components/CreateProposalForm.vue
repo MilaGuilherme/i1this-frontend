@@ -1,23 +1,22 @@
 <template>
-  {{ v$.links }}
   <form class="p-fluid text-left" @submit.prevent="handleSubmit(!v$.$invalid)">
     <h2 class="text-lg">Create a new proposal</h2>
     <div class="p-field">
       <div>
         <label for="link">Product URL</label>
-          <InputText
-            id="link"
-            placeholder="Link URL"
-            v-model="v$.link.$model"
-            class="my-1 flex-auto"
-            :class="{ 'p-invalid': v$.link.$invalid && submitted }"
-          />
-          <template v-for="error in v$.link.$errors" :key="error">
-            <small class="p-error">{{
-              error.$message.replace("Value", "Price")
-            }}</small
-            ><br />
-          </template>
+        <InputText
+          id="link"
+          placeholder="Link URL"
+          v-model="v$.link.$model"
+          class="my-1 flex-auto"
+          :class="{ 'p-invalid': v$.link.$invalid && submitted }"
+        />
+        <template v-for="error in v$.link.$errors" :key="error">
+          <small class="p-error">{{
+            error.$message.replace("Value", "Price")
+          }}</small
+          ><br />
+        </template>
       </div>
       <div class="p-field">
         <label for="dueDate">Product Photos</label>
@@ -40,7 +39,7 @@
                 v-if="index > 0"
                 icon="pi pi-minus"
                 class="p-button-rounded p-button p-button-outlined ml-2"
-                @click="photos.slice(index, 1)"
+                @click="photos.splice(index, 1)"
               />
             </div>
           </template>
@@ -201,7 +200,7 @@ export default {
       try {
         await axios.post(url, data, config).then((response) => {
           console.log(response);
-          //this.$router.push(`/proposal/${response.data.content.id}`);
+          this.$store.dispatch("fetchSelectedProduct", this.$route.path);
         });
       } catch (err) {
         console.log(err);

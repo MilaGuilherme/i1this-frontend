@@ -2,18 +2,15 @@
   <h2 class="text-left">🔥 Hot products</h2>
   <div class="hotproducts grid">
     <Carousel
-      :value="hotProducts"
-      :numVisible="5"
+      :value="products"
+      :numVisible="7"
       :numScroll="1"
-      :circular="true"
       :responsiveOptions="responsiveOptions"
-
+      :circular="true"
       class="w-full"
     >
       <template #item="slotProps">
-        <div
-          class="product-item-content m-2 text-left p-card"
-        >
+        <div class="product-item-content m-2 text-left p-card">
           <div class="img-container">
             <router-link :to="{ path: `/products/${slotProps.data.id}` }">
               <img
@@ -55,9 +52,7 @@ import CategoryChips from "./CategoryChips.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  components: { PlusOneButton,
-  CategoryChips
-   },
+  components: { PlusOneButton, CategoryChips },
   data() {
     return {
       responsiveOptions: [
@@ -80,13 +75,12 @@ export default {
     };
   },
   computed: {
-    hotProducts(){
-      const hot = []
-      this.products.map(m=>
-      m.ones > 0? hot.push(m) : null)
-      hot.sort((a,b)=> a.ones < b.ones)
-      hot.reverse()
-      return hot
+    hotProducts() {
+      const hot = [];
+      this.products.map((m) => (m.ones > 0 ? hot.push(m) : null));
+      hot.sort((a, b) => a.ones < b.ones);
+      hot.reverse();
+      return hot;
     },
     ...mapGetters({
       products: "getProducts",
@@ -100,14 +94,5 @@ export default {
   position: relative;
   top: -34px;
   right: 16px;
-}
-.product-item-content {
-  object-fit: cover;
-  border-radius: 1em;
-  overflow: hidden;
-}
-.img-container {
-  height: 150px;
-  max-width: ;
 }
 </style>

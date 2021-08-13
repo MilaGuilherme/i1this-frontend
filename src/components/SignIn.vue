@@ -1,12 +1,4 @@
 <template>
-  <Dialog
-    v-model:visible="displayModal"
-    header="Sign in to your account"
-    style="max-width: 400px"
-    :modal="true"
-    class="text-center"
-    @update:visible="$router.push('/')"
-  >
     <form
       class="p-fluid text-left"
       @submit.prevent="handleSubmit(!v$.$invalid)"
@@ -73,10 +65,9 @@
     <small>Don't have an account yet?</small>
     <Button
       class="p-button-text p-fluid w-full p-mt-2"
-      @click="$router.push('/signup')"
+      @click="$router.push('/?modal=SignUp')"
       label="Sign up instead"
     />
-  </Dialog>
 </template>
 
 <script>
