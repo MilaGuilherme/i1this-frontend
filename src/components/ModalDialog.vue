@@ -1,5 +1,6 @@
-<template>
-  <Dialog v-model:visible="displayModal" :header="header" style="max-width: 80%" :modal="true">
+<template> 
+  <Dialog :visible="displayModal" :header="header" style="max-width: 80%" :modal="true" @update:visible="$router.push(`${this.$route.path}`)
+">
     <component :is="component" />
   </Dialog>
 </template>
@@ -30,7 +31,7 @@ export default {
           return "Post a new product"
       
         default:
-          break;
+          return ""
       }
     }
   },
@@ -39,11 +40,6 @@ export default {
     displayModal: {
       type: Boolean,
       default: false,
-    },
-  },
-  methods: {
-    closeModal() {
-      this.displayModal = false;
     },
   },
 };
