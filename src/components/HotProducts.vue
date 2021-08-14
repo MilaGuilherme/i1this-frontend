@@ -89,6 +89,10 @@ export default {
 };
 </script>
 <style>
+.product-image{
+  object-fit: cover;
+}
+
 .card-one-button {
   float: right;
   position: relative;

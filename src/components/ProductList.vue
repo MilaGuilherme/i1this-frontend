@@ -19,7 +19,7 @@
             <img
               :src="slotProps.data.photos[0].src"
               :alt="slotProps.data.name"
-              class="h-full"
+              class="product-image"
             />
           </div>
           <div class="col">
@@ -72,5 +72,14 @@ export default {
 }
 .p-dataview-content {
   background: transparent !important;
+}
+.p-card{
+  overflow: hidden;
+}
+.product-image{
+ aspect-ratio: 1;
+ object-fit:cover;
+ max-height:200px;
+ width:100%;
 }
 </style>

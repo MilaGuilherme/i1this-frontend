@@ -1,6 +1,12 @@
 <template>
   <Button
-    @click="()=>{ $store.state.status.type == 3? $router.push('/?modal=CreateProductForm'): $router.push('/?modal=SignIn')}"
+    @click="
+      () => {
+        $store.state.status.type == 3
+          ? $router.push(`${$route.path}?modal=CreateProductForm`)
+          : $router.push(`${$route.path}?modal=SignIn`);
+      }
+    "
     class="plus-one p-button p-button-rounded my-2"
     >{{ text }}</Button
   >
