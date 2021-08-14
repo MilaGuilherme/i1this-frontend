@@ -5,6 +5,7 @@
     href="https://unpkg.com/primeflex@3.0.0/primeflex.css"
   />
   <top-bar />
+  <ModalDialog :component="!!$route.query.modal?$route.query.modal:''" :displayModal="!!$route.query.modal?true:false"/>
   <template v-if="$store.state.status.type == '' || $store.state.status.type == 3"
     ><CreateProductBanner
   /></template>
@@ -13,11 +14,13 @@
 
 <script>
 import CreateProductBanner from "./components/CreateProductBanner.vue";
+import ModalDialog from './components/ModalDialog.vue';
 import TopBar from "./components/TopBar.vue";
 export default {
   components: {
     TopBar,
     CreateProductBanner,
+    ModalDialog
   },
 };
 </script>

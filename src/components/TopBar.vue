@@ -15,7 +15,6 @@
     </template>
     <template #end v-if="innerWidth > 960">
       <template class="flex align-items-center">
-        <ModalDialog :component="!!$route.query.modal?$route.query.modal:''" :displayModal="!!$route.query.modal?true:false"/>
         <component
           :is="status.signed ? 'LoggedButtons' : 'UnloggedButtons'"
         ></component>
@@ -29,7 +28,6 @@
 import CreateProductButton from './CreateProductButton.vue';
 import UnloggedButtons from "./UnloggedButtons.vue";
 import LoggedButtons from "./LoggedButtons.vue";
-import ModalDialog from './ModalDialog.vue';
 
 // <span class="p-input-icon-right m-2">
 //           <i class="pi pi-search" />
@@ -45,7 +43,6 @@ export default {
     LoggedButtons,
     UnloggedButtons,
     CreateProductButton,
-    ModalDialog,
   },
   mounted() {
     window.addEventListener("resize", () => {
