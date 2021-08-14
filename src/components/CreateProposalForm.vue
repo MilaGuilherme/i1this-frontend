@@ -19,8 +19,8 @@
         </template>
       </div>
       <div class="p-field">
-        <label for="dueDate">Product Photos</label>
-        <div class="">
+        <label for="photo">Product Photos</label>
+        <div>
           <template v-for="(photo, index) in photos" :key="index">
             <div class="flex">
               <InputText

@@ -1,54 +1,49 @@
 <template>
-    <form
-      class="p-fluid text-left"
-      @submit.prevent="handleSubmit(!v$.$invalid)"
-    >
-      <div class="p-field">
-        <InputText
-          id="name"
-          placeholder="Product name"
-          autocomplete="off"
-          type='text'
-          v-model="v$.name.$model"
-          :class="{ 'p-invalid': v$.name.$invalid && submitted }"
-        />
-        <small
-          v-if="(v$.name.$invalid && submitted) || v$.name.$pending.$response"
-          class="p-error max-w-0"
-          >{{ v$.name.required.$message.replace("Value", "Product name") }}<br
-        /></small>
-      </div>
-      <div class="p-field my-2">
-        <MultiSelect
-          v-model="v$.selectedCategories.$model"
-          :options="categories"
-          optionValue="id"
-          optionLabel="name"
-          placeholder="Select Categories"
-          display="chip"
-          :class="{ 'p-invalid': v$.selectedCategories.$invalid && submitted }"
-        />
-        <small
-          v-if="
-            (v$.selectedCategories.$invalid && submitted) ||
-            v$.selectedCategories.$pending.$response
-          "
-          class="p-error max-w-0"
-          >{{
-            v$.selectedCategories.required.$message.replace(
-              "Value",
-              "Category"
-            )
-          }}<br />
-        </small>
-      </div>
-      <div class="flex flex-row flex-wrap align">
-        <template v-for="(photo, index) in photos" :key="index">
+  <form class="p-fluid text-left" @submit.prevent="handleSubmit(!v$.$invalid)">
+    <div class="p-field">
+      <InputText
+        id="name"
+        placeholder="Product name"
+        autocomplete="off"
+        type="text"
+        v-model="v$.name.$model"
+        :class="{ 'p-invalid': v$.name.$invalid && submitted }"
+      />
+      <small
+        v-if="(v$.name.$invalid && submitted) || v$.name.$pending.$response"
+        class="p-error max-w-0"
+        >{{ v$.name.required.$message.replace("Value", "Product name") }}<br
+      /></small>
+    </div>
+    <div class="p-field my-2">
+      <MultiSelect
+        v-model="v$.selectedCategories.$model"
+        :options="categories"
+        optionValue="id"
+        optionLabel="name"
+        placeholder="Select Categories"
+        display="chip"
+        :class="{ 'p-invalid': v$.selectedCategories.$invalid && submitted }"
+      />
+      <small
+        v-if="
+          (v$.selectedCategories.$invalid && submitted) ||
+          v$.selectedCategories.$pending.$response
+        "
+        class="p-error max-w-0"
+        >{{
+          v$.selectedCategories.required.$message.replace("Value", "Category")
+        }}<br />
+      </small>
+    </div>
+    <div>
+      <template v-for="(photo, index) in photos" :key="index">
+        <div class="flex">
           <InputText
             id="photo"
             placeholder="Photo URL"
+            class="my-1"
             v-model="photos[index].src"
-            :class="index == 0 ? 'my-1 flex-1' : 'my-1 flex-none'"
           />
           <Button
             v-if="index == 0"
@@ -56,49 +51,56 @@
             class="p-button-rounded p-button p-button-outlined ml-2"
             @click="photos.push({ src: '' })"
           />
-        </template>
-      </div>
-      <div class="p-field my-2">
-        <Textarea
-          id="description"
-          placeholder="Description"
-          v-model="v$.description.$model"
-          :class="{ 'p-invalid': v$.name.$invalid && submitted }"
-        />
-        <small
-          v-if="
-            (v$.description.$invalid && submitted) ||
-            v$.description.$pending.$response
-          "
-          class="p-error max-w-0"
-          >{{ v$.description.required.$message.replace("Value", "Description")
-          }}<br
-        /></small>
-        <small
-          v-if="v$.description.$invalid && v$.description.$dirty"
-          class="p-error max-w-0"
-          >Must be at least 20 characters long</small
-        >
-      </div>
-      <div class="py-2">
-        <label for="price">Price you're willing to pay for this product</label>
-        <InputNumber
-          id="price"
-          placeholder="Price"
-          v-model="v$.price.$model"
-          mode="currency"
-          currency="USD"
-          :min="0"
-          :max="9999999"
-          showButtons
-          buttonLayout="horizontal"
-          incrementButtonIcon="pi pi-plus"
-          decrementButtonIcon="pi pi-minus"
-          :class="{ 'p-invalid': v$.price.$invalid && submitted }"
-        />
-      </div>
-      <Button class="my-2" type="submit" label="Post new product" />
-    </form>
+          <Button
+            v-if="index > 0"
+            icon="pi pi-minus"
+            class="p-button-rounded p-button p-button-outlined ml-2"
+            @click="photos.splice(index, 1)"
+          />
+        </div>
+      </template>
+    </div>
+    <div class="p-field my-2">
+      <Textarea
+        id="description"
+        placeholder="Description"
+        v-model="v$.description.$model"
+        :class="{ 'p-invalid': v$.name.$invalid && submitted }"
+      />
+      <small
+        v-if="
+          (v$.description.$invalid && submitted) ||
+          v$.description.$pending.$response
+        "
+        class="p-error max-w-0"
+        >{{ v$.description.required.$message.replace("Value", "Description")
+        }}<br
+      /></small>
+      <small
+        v-if="v$.description.$invalid && v$.description.$dirty"
+        class="p-error max-w-0"
+        >Must be at least 20 characters long</small
+      >
+    </div>
+    <div class="py-2">
+      <label for="price">Price you're willing to pay for this product</label>
+      <InputNumber
+        id="price"
+        placeholder="Price"
+        v-model="v$.price.$model"
+        mode="currency"
+        currency="USD"
+        :min="0"
+        :max="9999999"
+        showButtons
+        buttonLayout="horizontal"
+        incrementButtonIcon="pi pi-plus"
+        decrementButtonIcon="pi pi-minus"
+        :class="{ 'p-invalid': v$.price.$invalid && submitted }"
+      />
+    </div>
+    <Button class="my-2" type="submit" label="Post new product" />
+  </form>
 </template>
 
 <script>
@@ -125,7 +127,7 @@ export default {
   },
   validations() {
     return {
-      name: { required, minLength: minLength(6) },
+      name: { required, minLength: minLength(5) },
       price: {},
       description: { required, minLength: minLength(20) },
       photos: { $each: { src: { url } } },
@@ -166,17 +168,19 @@ export default {
         },
       };
       try {
-        await axios.post(url, data,config).then((response) => {
-           console.log(response)
-           this.$router.push(`/products/${response.data.content.id}`)
+        await axios.post(url, data, config).then((response) => {
+          console.log(response);
+          this.$router.push(`/products/${response.data.content.id}`);
         });
       } catch (err) {
         console.log(err);
       }
     },
   },
-  mounted(){
-      this.$store.state.status.type != 3?  this.$router.push('/?modal=SignIn') : ""
+  mounted() {
+    this.$store.state.status.type != 3
+      ? this.$router.push("/?modal=SignIn")
+      : "";
   },
   computed: {
     ...mapGetters({
