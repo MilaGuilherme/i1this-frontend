@@ -6,7 +6,7 @@
           <img
             :src="slotProps.item.src"
             :alt="slotProps.item.alt ? slotProps.item.alt : product.name"
-            class="product-image w-full"
+            class="product-caroussel-image w-full"
           />
         </template>
         <template #thumbnail="slotProps">
@@ -92,7 +92,7 @@
             :numVisible="1"
             :circular="true"
           >
-            <template #item="slotProps" galleriaClass="teste">
+            <template #item="slotProps">
               <img
                 :src="slotProps.item.src"
                 :alt="slotProps.item.alt ? slotProps.item.alt : product.name"
@@ -179,10 +179,15 @@ export default {
 .p-galleria-thumbnail-container {
   background: rgb(127, 129, 133) !important;
 }
+.p-galleria-thumbnail-item{
+  overflow:initial !important;
+  margin-right:1em;
+}
 .p-galleria-thumbnail-item-content > img {
-  margin: 0 1em;
   max-height: 100px;
   max-width: 100px;
+  object-fit: cover;
+  overflow:hidden;
 }
 .plus-one-product {
   float: right;
@@ -191,7 +196,8 @@ export default {
   max-width: 80%;
   margin: auto;
 }
-.product-image{
-  max-height:200px
+.product-caroussel-image{
+  max-height:500px;
+  max-width:500px
 }
 </style>

@@ -124,7 +124,7 @@ export default {
           this.$store.dispatch("setStatus", response.headers);
           this.$store.dispatch("signIn");
           this.successMsg();
-          this.$router.push('/');
+          this.$router.push(`${this.$route.path}`);
         });
       } catch (err) {
         if (err.response.status == 403) {

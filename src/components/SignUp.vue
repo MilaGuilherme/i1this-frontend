@@ -1,111 +1,106 @@
 <template>
-    <form
-      class="p-fluid text-left"
-      @submit.prevent="handleSubmit(!v$.$invalid)"
-    >
-      <div class="p-field">
-        <InputText
-          id="name"
-          placeholder="Name"
-          v-model="v$.name.$model"
-          :class="{ 'p-invalid': v$.name.$invalid && submitted }"
-        />
-        <small
-          v-if="(v$.name.$invalid && submitted) || v$.name.$pending.$response"
-          class="p-error max-w-0"
-          >{{ v$.name.required.$message.replace("Value", "Name") }}<br
-        /></small>
-        <small v-if="v$.name.$invalid && v$.name.$dirty" class="p-error max-w-0"
-          >Must be at least 2 characters long</small
-        >
-      </div>
-      <div class="p-field my-2">
-        <InputText
-          id="email"
-          placeholder="Email"
-          type="email"
-          v-model="v$.email.$model"
-          :class="{
-            'p-invalid': (v$.password.$invalid && submitted) || duplicateEmail,
-          }"
-          @keyup="
-            () => {
-              duplicateEmail == true ? (duplicateEmail = false) : null;
-            }"
-        />
-        <template v-for="error in v$.email.$errors" :key="error">
-          <small class="p-error">{{
-            error.$message.replace("Value", "Email")
-          }}</small
-          ><br />
+  <form class="p-fluid text-left" @submit.prevent="handleSubmit(!v$.$invalid)">
+    <div class="p-field">
+      <InputText
+        id="name"
+        placeholder="Name"
+        v-model="v$.name.$model"
+        :class="{ 'p-invalid': v$.name.$invalid && submitted }"
+      />
+      <small
+        v-if="(v$.name.$invalid && submitted) || v$.name.$pending.$response"
+        class="p-error max-w-0"
+        >{{ v$.name.required.$message.replace("Value", "Name") }}<br
+      /></small>
+      <small v-if="v$.name.$invalid && v$.name.$dirty" class="p-error max-w-0"
+        >Must be at least 2 characters long</small
+      >
+    </div>
+    <div class="p-field my-2">
+      <InputText
+        id="email"
+        placeholder="Email"
+        type="email"
+        v-model="v$.email.$model"
+        :class="{
+          'p-invalid': (v$.password.$invalid && submitted) || duplicateEmail,
+        }"
+        @keyup="
+          () => {
+            duplicateEmail == true ? (duplicateEmail = false) : null;
+          }
+        "
+      />
+      <template v-for="error in v$.email.$errors" :key="error">
+        <small class="p-error">{{
+          error.$message.replace("Value", "Email")
+        }}</small
+        ><br />
+      </template>
+      <small v-if="duplicateEmail" class="p-error">
+        This e-mail is already registered
+      </small>
+    </div>
+    <div class="p-field my-2">
+      <Password
+        id="password"
+        placeholder="Password"
+        v-model="v$.password.$model"
+        :class="{ 'p-invalid': v$.password.$invalid && submitted }"
+        toggleMask
+      >
+        <template #footer="sp">
+          {{ sp.level }}
+          <small>Minimum of 6 characters</small>
+          <Divider />
+          <p>Suggestions:</p>
+          <ul
+            class="p-pl-2 p-ml-2 p-mt-2"
+            style="line-height: 1.5; font-size: 0.8em"
+          >
+            <li>At least one lowercase</li>
+            <li>At least one uppercase</li>
+            <li>At least one numeric</li>
+          </ul>
         </template>
-        <small v-if="duplicateEmail" class="p-error">
-          This e-mail is already registered
-        </small>
-      </div>
-      <div class="p-field my-2">
-        <Password
-          id="password"
-          placeholder="Password"
-          v-model="v$.password.$model"
-          :class="{ 'p-invalid': v$.password.$invalid && submitted }"
-          toggleMask
-        >
-          <template #footer="sp">
-            {{ sp.level }}
-            <small>Minimum of 6 characters</small>
-            <Divider />
-            <p>Suggestions:</p>
-            <ul
-              class="p-pl-2 p-ml-2 p-mt-2"
-              style="line-height: 1.5; font-size: 0.8em"
-            >
-              <li>At least one lowercase</li>
-              <li>At least one uppercase</li>
-              <li>At least one numeric</li>
-            </ul>
-          </template>
-        </Password>
-        <template v-for="error in v$.password.$errors" :key="error">
-          <small class="p-error">{{
-            error.$message.replace("Value", "Password")
-          }}</small
-          ><br />
-        </template>
-        <small
-          v-if="
-            (v$.password.$invalid && submitted) ||
-            v$.password.$pending.$response
-          "
-          class="p-error"
-          >{{
-            v$.password.required.$message.replace("Value", "Password")
-          }}</small
-        >
-      </div>
-      <div class="p-field-checkbox my-2">
-        <Checkbox
-          id="accept"
-          name="accept"
-          value="Accept"
-          v-model="v$.accept.$model"
-          class="mr-2"
-          :class="{ 'p-invalid': v$.accept.$invalid && submitted }"
-        />
-        <label
-          for="accept"
-          :class="{ 'p-error': v$.accept.$invalid && submitted }"
-          >I agree to the terms and conditions*</label
-        >
-      </div>
-      <Button class="my-2" type="submit" label="Sign Up" />
-    </form>
-    <small>Already have an account?</small>
-    <Button
-      class="p-button-text p-fluid w-full my-2"
-      @click="$router.push('/?modal=SignIn')"
-      label="Sign in instead"
-    />
+      </Password>
+      <template v-for="error in v$.password.$errors" :key="error">
+        <small class="p-error">{{
+          error.$message.replace("Value", "Password")
+        }}</small
+        ><br />
+      </template>
+      <small
+        v-if="
+          (v$.password.$invalid && submitted) || v$.password.$pending.$response
+        "
+        class="p-error"
+        >{{ v$.password.required.$message.replace("Value", "Password") }}</small
+      >
+    </div>
+    <div class="p-field-checkbox my-2">
+      <Checkbox
+        id="accept"
+        name="accept"
+        value="Accept"
+        v-model="v$.accept.$model"
+        class="mr-2"
+        :class="{ 'p-invalid': v$.accept.$invalid && submitted }"
+      />
+      <label
+        for="accept"
+        :class="{ 'p-error': v$.accept.$invalid && submitted }"
+        >I agree to the terms and conditions*</label
+      >
+    </div>
+    <Button class="my-2" type="submit" label="Sign Up" />
+  </form>
+  <small>Already have an account?</small>
+  <Button
+    class="p-button-text p-fluid w-full my-2"
+    @click="$router.push('/?modal=SignIn')"
+    label="Sign in instead"
+  />
 </template>
 
 <script>
@@ -163,7 +158,7 @@ export default {
         await axios.post(url, data).then((response) => {
           this.$store.dispatch("setStatus", response.headers);
           this.$store.dispatch("signIn");
-          this.$router.push('/');
+          this.$router.push(`${this.$route.path}`);
         });
       } catch (err) {
         console.log(err);
@@ -172,9 +167,9 @@ export default {
     async signUp() {
       const url = `${process.env.VUE_APP_API}/signup`;
       const data = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
+        name: this.name,
+        email: this.email,
+        password: this.password,
       };
       try {
         await axios.post(url, data).then(() => {

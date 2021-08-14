@@ -94,12 +94,12 @@ export default {
         },
         {
           label: "Sign Up",
-          url: "/?modal=SignUp",
+          url: `${this.$route.path}?modal=SignUp`,
 
         },
         {
           label: "Sign In",
-          url: "/?modal=SignIn",
+          url: `${this.$route.path}?modal=SignIn`,
         },
       ],
     };

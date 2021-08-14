@@ -3,7 +3,7 @@
     type="button"
     class="p-button p-component mx-2"
     label="Sign Up"    
-    @click="$router.push('/?modal=SignUp')"
+    @click="$router.push(`${this.$route.path}?modal=SignUp`)"
     aria-haspopup="true"
     aria-controls="overlay_menu"
   />
@@ -11,7 +11,7 @@
     type="button"
     class="p-button-outlined p-component mx-2 h-auto"
     label="Sign In"
-    @click="$router.push('/?modal=SignIn')"
+    @click="$router.push(`${this.$route.path}?modal=SignIn`)"
     aria-haspopup="true"
     aria-controls="overlay_menu"
   />
